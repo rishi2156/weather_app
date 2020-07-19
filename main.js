@@ -3,7 +3,11 @@ const api={
     base:"https://api.openweathermap.org/data/2.5/"
 }
 initialDate();
+initialTime();
+
+const icon=document.querySelector(".refresh")
 const searchbox=document.querySelector(".search-box");
+icon.addEventListener("click",setQuery2);
 searchbox.addEventListener("keypress",setQuery);
 searchbox.addEventListener("blur",setQuery2);
 
@@ -32,16 +36,23 @@ function initialDate() {
     let date=document.querySelector(".location .date");
     date.innerText=dateBuilder(now);
 }
+function initialTime() {
+    let now=new Date();
+    let time=document.querySelector(".low .time")
+    time.innerText=timeBuilder(now);
+}
 
 function displayResults(weather) {
     // console.log("fetched")
-    console.log(weather);
+    // console.log(weather);
     let city=document.querySelector(".location .city");
     city.innerText=`${weather.name}, ${weather.sys.country}`;
 
     let now=new Date();
     let date=document.querySelector(".location .date");
+    let time=document.querySelector(".low .time")
     date.innerText=dateBuilder(now);
+    time.innerText=timeBuilder(now);
 
     let temp=document.querySelector(".current .temp");
     temp.innerHTML=`${Math.round(weather.main.temp)}<span>°C</span>`;
@@ -66,4 +77,20 @@ function dateBuilder(d) {
     let year=d.getFullYear();
 
     return `${day} ${date} ${month} ${year}`
+}
+
+function timeBuilder(d) {
+    var hour=d.getHours().toString();
+    var min=d.getMinutes().toString();
+    var sec=d.getSeconds().toString();
+    if (hour.length<2){
+        hour=`0${hour}`;
+    }
+    if (min.length<2){
+        min=`0${min}`;
+    }
+    if (sec.length<2){
+        sec=`0${sec}`;
+    }
+    return `Last Refresh at ${hour}:${min}:${sec}`;
 }
