@@ -44,7 +44,7 @@ function initialTime() {
 
 function displayResults(weather) {
     // console.log("fetched")
-    // console.log(weather);
+    console.log(weather);
     let city=document.querySelector(".location .city");
     city.innerText=`${weather.name}, ${weather.sys.country}`;
 
@@ -65,6 +65,9 @@ function displayResults(weather) {
 
     let hilow=document.querySelector('.hi-low');
     hilow.innerText=`${Math.round(weather.main.temp_min)}°C / ${Math.round(weather.main.temp_max)}°C`;
+
+    let feel=document.querySelector('.feels');
+    feel.innerText=`Feels like ${Math.round(weather.main.feels_like)} °C`
 }
 
 function dateBuilder(d) {
